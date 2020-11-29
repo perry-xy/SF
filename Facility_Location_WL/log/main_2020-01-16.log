@@ -1,0 +1,40 @@
+2020-01-16 10:05:04,372 - main - INFO - loading the excel file ......
+2020-01-16 10:05:14,647 - main - INFO - load the excel file over
+2020-01-16 10:06:08,122 - main - INFO - the model 1 is running ....
+2020-01-16 10:06:08,673 - main - INFO - the facility location optimized sucessfully !
+2020-01-16 10:06:08,673 - main - INFO - the objective of the model is 123358318.518
+2020-01-16 10:06:08,673 - main - INFO - dump model to file:
+
+2020-01-16 10:06:08,745 - main - INFO - the model is end
+2020-01-16 10:18:17,872 - main - INFO - loading the excel file ......
+2020-01-16 10:18:29,544 - main - INFO - load the excel file over
+2020-01-16 10:19:18,008 - main - INFO - the model 1 is running ....
+2020-01-16 10:19:18,346 - main - INFO - the facility location optimized sucessfully !
+2020-01-16 10:19:18,346 - main - INFO - the objective of the model is 215227259.74766982
+2020-01-16 10:19:18,346 - main - INFO - dump model to file:
+
+2020-01-16 10:19:18,411 - main - INFO - the model is end
+2020-01-16 10:45:00,340 - main - INFO - loading the excel file ......
+2020-01-16 10:45:10,692 - main - INFO - load the excel file over
+2020-01-16 10:48:34,076 - main - INFO - loading the excel file ......
+2020-01-16 10:48:46,023 - main - INFO - load the excel file over
+2020-01-16 10:49:46,829 - main - INFO - the model 1 is running ....
+2020-01-16 10:49:47,192 - main - INFO - the model is infeasible!!!
+2020-01-16 11:32:03,084 - main - INFO - loading the excel file ......
+2020-01-16 11:32:13,038 - main - INFO - load the excel file over
+2020-01-16 11:33:01,482 - main - INFO - the model 1 is running ....
+2020-01-16 11:33:01,767 - main - INFO - the facility location optimized sucessfully !
+2020-01-16 11:33:01,767 - main - INFO - the objective of the model is 37124534.359669775
+2020-01-16 11:33:01,767 - main - INFO - dump model to file:
+
+2020-01-16 11:33:01,827 - main - INFO - the model is end
+2020-01-16 11:33:38,356 - main - INFO - loading the excel file ......
+2020-01-16 11:33:48,152 - main - INFO - load the excel file over
+2020-01-16 11:33:58,294 - main - INFO - loading the excel file ......
+2020-01-16 11:34:08,143 - main - INFO - load the excel file over
+2020-01-16 11:34:59,644 - main - INFO - the model 1 is running ....
+2020-01-16 11:34:59,981 - main - INFO - the facility location optimized sucessfully !
+2020-01-16 11:34:59,981 - main - INFO - the objective of the model is 215227259.74766985
+2020-01-16 11:34:59,981 - main - INFO - dump model to file:
+
+2020-01-16 11:35:00,051 - main - INFO - the model is end

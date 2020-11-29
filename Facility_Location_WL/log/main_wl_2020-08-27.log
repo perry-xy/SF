@@ -1,0 +1,24 @@
+2020-08-27 14:19:21,288 - main_wl - INFO - loading the excel file ......
+2020-08-27 14:19:30,081 - main_wl - INFO - load the excel file over
+2020-08-27 14:20:08,973 - main_wl - INFO - the model 10 is running ....
+2020-08-27 14:20:10,005 - main_wl - INFO - the facility location optimized sucessfully !
+2020-08-27 14:20:10,005 - main_wl - INFO - the objective of the model is 164336004.38979557
+2020-08-27 14:20:10,006 - main_wl - INFO - dump model to file:
+
+2020-08-27 14:20:10,407 - main_wl - INFO - the model is end
+2020-08-27 14:48:05,449 - main_wl - INFO - loading the excel file ......
+2020-08-27 14:48:13,831 - main_wl - INFO - load the excel file over
+2020-08-27 14:49:00,400 - main_wl - INFO - the model 7 is running ....
+2020-08-27 14:49:01,657 - main_wl - INFO - the facility location optimized sucessfully !
+2020-08-27 14:49:01,657 - main_wl - INFO - the objective of the model is 178331673.5879762
+2020-08-27 14:49:01,658 - main_wl - INFO - dump model to file:
+
+2020-08-27 14:49:02,188 - main_wl - INFO - the model is end
+2020-08-27 14:49:30,368 - main_wl - INFO - loading the excel file ......
+2020-08-27 14:49:37,500 - main_wl - INFO - load the excel file over
+2020-08-27 14:50:17,969 - main_wl - INFO - the model 4 is running ....
+2020-08-27 14:50:19,034 - main_wl - INFO - the facility location optimized sucessfully !
+2020-08-27 14:50:19,034 - main_wl - INFO - the objective of the model is 193446956.67265686
+2020-08-27 14:50:19,034 - main_wl - INFO - dump model to file:
+
+2020-08-27 14:50:19,351 - main_wl - INFO - the model is end

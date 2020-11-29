@@ -1,0 +1,8 @@
+2020-09-01 15:37:03,112 - main_wl - INFO - loading the excel file ......
+2020-09-01 15:37:10,139 - main_wl - INFO - load the excel file over
+2020-09-01 15:37:48,005 - main_wl - INFO - the model 4 is running ....
+2020-09-01 15:37:48,906 - main_wl - INFO - the facility location optimized sucessfully !
+2020-09-01 15:37:48,906 - main_wl - INFO - the objective of the model is 193446956.6726569
+2020-09-01 15:37:48,906 - main_wl - INFO - dump model to file:
+
+2020-09-01 15:37:49,293 - main_wl - INFO - the model is end

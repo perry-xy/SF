@@ -1,0 +1,6 @@
+DATA:
+  data_path: 'data/data.csv'
+  time_column: 'date'
+  target_column: 'quantity'
+  id_column: 'city'
+  scaler_name: 'Log'
