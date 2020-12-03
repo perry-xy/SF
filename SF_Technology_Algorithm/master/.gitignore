@@ -1,0 +1,7 @@
+/.idea
+/log
+/results
+*.log
+*.lp
+*.pyc
+*.xlsx

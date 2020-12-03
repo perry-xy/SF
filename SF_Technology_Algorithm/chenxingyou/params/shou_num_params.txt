@@ -1,0 +1,2 @@
+{'colsample_bytree': 0.8217924374023988, 'learning_rate': 0.08, 'max_depth': 7, 'n_estimators': 130,
+         'num_leaves': 100, 'reg_alpha': 0.9906796348321343, 'reg_lambda': 0.9092079882517341, 'metric': ['mape'], 'objective': 'regression'}

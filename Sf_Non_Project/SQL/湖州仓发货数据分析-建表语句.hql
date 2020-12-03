@@ -62,3 +62,27 @@ from
       inc_day >= '20200815'
       and inc_day <= '20201126'
   ) b on a.waybill_no = b.waybill_no;
+
+
+  select
+  count(distinct waybill_no),
+  percentile_approx(jifei_weight, array(0.05, 0.25, 0.5, 0.75, 0.95), 3000) weight_distribution,
+  avg(jifei_weight) avg_weight,
+  sum(fee) / sum(jifei_weight) avg_price,
+  count(*) num
+from
+  tmp_dm_as.cxy_1126_dg
+where
+   jifei_weight is not null;
+  
+select
+  src_dist_code,
+  dest_dist_code,
+  count(distinct waybill_no) num
+from
+  tmp_dm_as.cxy_1126_dg
+where
+  jifei_weight is not null
+group by
+  src_dist_code,
+  dest_dist_code;
