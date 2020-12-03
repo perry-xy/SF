@@ -5,7 +5,7 @@ import pandas as pd
 from openpyxl import load_workbook
 import os
 
-upload_day = '1203'
+upload_day = '1204'
 
 """
 将历史数据和新数据融合

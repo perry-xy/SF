@@ -115,7 +115,7 @@ class DataHandler():
         补齐全aoi与zone_id的对应关系后，取各zone的aoi数目、aoi类型数、aoi面积总和作为zone的属性
         :return:
         """
-        aoi_data = pd.read_csv('../data/aoi信息.csv')
+        aoi_data = pd.read_csv('data/aoi信息.csv')
         aoi_collects = pd.pivot_table(data=aoi_data,
                                       index='zone_id',
                                       values=['aoi面积', 'aoi_id', 'aoi类型'],

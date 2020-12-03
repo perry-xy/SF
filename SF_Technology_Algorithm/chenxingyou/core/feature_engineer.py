@@ -44,16 +44,19 @@ class FeatureEngineer():
         print(sales_date)
 
         feature_df = pd.concat([self.handled_data, shift_feature_df, time_feature_df, fourier_series_feature_df], axis=1)
+        print(feature_df.shape)
 
-        group_feature_new = self.group_feature_new(feature_df)
-        group_feature_new.to_csv('group_feature_new.csv')
+        # group_feature_new = self.group_feature_new(feature_df)
+        # group_feature_new = pd.concat([feature_df, group_feature_new], axis = 1)
+        # print(group_feature_new.shape)
+        # group_feature_new.to_csv('group_feature_new.csv')
 
-                                                                            # 将除组平均、节假日、促销日的特征合并
+        # 将除组平均、节假日、促销日的特征合并
         group_feature_df = self.group_feature(feature_df)
 
         feature_df = pd.concat([feature_df, group_feature_df], axis = 1) # 与组平均特征合并
 
-        # feature_df.dropna(axis=0, inplace=True) # 将做滑窗空的行删去
+        feature_df.dropna(axis=0, inplace=True) # 将做滑窗空的行删去
         feature_df.reset_index(inplace=True, drop=True) # 删除后重新index
         feature_df = pd.merge(feature_df, holiday_feature_df, how='left', on=[self.time_column]) # 节假日合并
         feature_df = pd.merge(feature_df, sales_date, left_on = 'date', right_on = 'is_sale', how = 'left')
@@ -68,7 +71,7 @@ class FeatureEngineer():
 
         feature_df.sort_values(by = [self.id_column, self.time_column], ascending=(True, True), inplace = True, ignore_index = True)
 
-        # feature_df.to_csv('predict_feature/{}_feature.csv'.format(self.predict_target), index = True)
+        feature_df.to_csv('predict_feature/{}_feature.csv'.format(self.predict_target), index = True)
 
         return feature_df
 
@@ -200,6 +203,7 @@ class FeatureEngineer():
         """
         time_handled_df.sort_values(by = [self.id_column, self.time_column], ascending=(True, True), inplace = True,
                                                                                                         ignore_index = True)
+        new_group_feature_df = pd.DataFrame()
         # weekday
         group_feature_df = pd.DataFrame()
         for target_column in self.target_column:
@@ -218,13 +222,44 @@ class FeatureEngineer():
                 df_zone = pd.concat([df_zone, df_zone_shift], axis=0)  # 将各zone的结果竖向拼接起来
 
             group_column = ["{}_groupby_{}_{}".format(target_column, self.group_columns[0], i) for i in
-                            ["max", "min", "median", "std", "sum"]]
+                            ["max", "min", "median", "std", "avg"]]
             df_zone[group_column[0]], df_zone[group_column[1]], df_zone[group_column[2]], df_zone[group_column[3]],\
             df_zone[group_column[4]] = df_zone.max(axis = 1), df_zone.min(axis = 1), df_zone.median(axis = 1), df_zone.std(axis = 1),\
-                                        df_zone.sum(axis=1)
+                                        df_zone.mean(axis=1)
             group_feature_df = pd.concat([group_feature_df, df_zone], axis = 1)
 
-        return group_feature_df
+        new_group_feature_df = pd.concat([new_group_feature_df, group_feature_df], axis =1)
+
+        # month
+        group_feature_df = pd.DataFrame()
+        for zone, zone_data in time_handled_df.groupby(self.id_column):
+            zone_data.reset_index(drop=True, inplace=True)
+            zone_feature = zone_data.iloc[:-3, :]  # 去除最后三天的数据做特征，以免数据暴露
+            zone_feature_df = pd.DataFrame()
+
+            for target_column in self.target_column:
+
+                for group_target in [self.group_columns[1]]:
+                    # group_features = np.zeros((len(zone_data), 5))   # 取zone_data的length
+                    group_features = np.full([len(zone_data), 5], np.nan)
+                    for id, groups in zone_feature.groupby(group_target):  # 使用zone_feature，而不是zone_data
+                        value_arr = groups[target_column]
+                        stats_vec = [np.max(value_arr), np.min(value_arr), np.median(value_arr), np.std(value_arr),
+                                     np.sum(value_arr)]  # zone_feature上的统计值
+                        assign_index = zone_data[zone_data[group_target] == id].index  # 取zone_data的index
+                        group_features[assign_index, :] = stats_vec
+
+                    group_column = ["{}_groupby_{}_{}".format(target_column, group_target, i) for i in
+                                    ["max", "min", "median", "std", "sum"]]
+                    group_feature = pd.DataFrame(group_features, columns=group_column,
+                                                 index=list(range(0, len(zone_data))))
+                    zone_feature_df = pd.concat([zone_feature_df, group_feature], axis=1)
+
+            group_feature_df = pd.concat([group_feature_df, zone_feature_df], axis=0)
+
+        new_group_feature_df = pd.concat([new_group_feature_df, group_feature_df], axis=1)
+
+        return new_group_feature_df
 
     def holiday_feature(self):
         """
