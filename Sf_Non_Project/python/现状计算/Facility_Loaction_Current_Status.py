@@ -14,8 +14,8 @@ class Config():
     模型调节参数，可用来调节是否考虑调拨成本、支线的配送方式是to_B或to_C等
     """
     reverse_compute = True
-    distribute_ToB = False
-    distribute_ToC = True
+    distribute_ToB = True
+    distribute_ToC = False
 
 class FacilitylocationCurrentstatus():
     """
@@ -27,7 +27,7 @@ class FacilitylocationCurrentstatus():
         """
         self.filename=filename
         self.config=config
-        self.weight_avg=350
+        self.weight_avg=12.5
         self.YEAR_DAY=365
         self.sku=dict()
         self.demand=dict()
@@ -45,6 +45,7 @@ class FacilitylocationCurrentstatus():
         self.reverse_customer=list()
         self.reverse_tob=dict()
         self.reverse_price=dict()
+        self.dis_price_toB_trunk = dict()
         self.dis_price_toB_transit=dict()
         self.dis_price_toB_dist=dict()
         self.datahandle()
@@ -80,10 +81,15 @@ class FacilitylocationCurrentstatus():
         # reverse_price_df = wb.sheets['Reverse_Price'].range('A1').options(pd.DataFrame, expand='table', index=False,
         #                                                        dtype=object).value
         reverse_price_df = pd.read_csv("data/Reverse_Price.csv")
+        # dis_price_toB_trunk_df = wb.sheets['Dis_Trunk'].range('A1').options(pd.DataFrame, expand='table',index=False,
+        #                                                        dtype=object).value
+        dis_price_toB_trunk_df = pd.read_csv("data/Dis_Trunk.csv")
         dis_price_toB_transit_df = wb.sheets['Dis_Transit'].range('A1').options(pd.DataFrame, expand='table', index=False,
                                                                dtype=object).value
         dis_price_toB_dist_df = wb.sheets['Dis_Dist'].range('A1').options(pd.DataFrame, expand='table', index=False,
                                                                dtype=object).value
+        wb.close()
+        app.quit()
 
         demand_df[['起始城市代码','目的城市代码']] = demand_df[['起始城市代码','目的城市代码']].astype(int).astype(str)
         distribution_price_df[['src_code', 'dest_code']] = distribution_price_df[['src_code', 'dest_code']].astype(
@@ -96,11 +102,10 @@ class FacilitylocationCurrentstatus():
         #warehouse_area_ratio['仓数'] = warehouse_area_ratio['仓数'].astype(int)
         reverse_tob_df[['起始城市代码','目的城市代码','车型']] = reverse_tob_df[['起始城市代码','目的城市代码','车型']].astype(int).astype(str)
         reverse_price_df[['src_code', 'dest_code', '车型']] = reverse_price_df[['src_code', 'dest_code', '车型']].astype(int).astype(str)
+        print(reverse_price_df.head())
+        dis_price_toB_trunk_df[['src_code', 'dest_code']] = dis_price_toB_trunk_df[['src_code', 'dest_code']].astype(int).astype(str)
         dis_price_toB_transit_df[['src_code', 'dest_code']] = dis_price_toB_transit_df[['src_code', 'dest_code']].astype(int).astype(str)
         dis_price_toB_dist_df['始发城市'] = dis_price_toB_dist_df['始发城市'].astype(int).astype(str)
-
-        wb.close()
-        app.quit()
 
         # sku、category_list
         for idx, row in sku_df.iterrows():
@@ -179,6 +184,13 @@ class FacilitylocationCurrentstatus():
             self.reverse_price[(src, dest, vehicle)] = {'distance': row['distance'],
                                                             'trans_fee': row['price/kg']}
 
+        # dis_price_toB_trunk
+        for idx, row in dis_price_toB_trunk_df.iterrows():
+                src = row['src_code']
+                dest = row['dest_code']
+                self.dis_price_toB_trunk[(src, dest)] = {'distance': row['distance'],
+                                                            'trans_fee': row['price/kg']}
+
         # dis_price_toB_transit
         for idx, row in dis_price_toB_transit_df.iterrows():
             src = row['src_code']
@@ -200,6 +212,7 @@ class FacilitylocationCurrentstatus():
         del warehouse_area_ratio
         del reverse_tob_df
         del reverse_price_df
+        del dis_price_toB_trunk_df
         del dis_price_toB_transit_df
         del dis_price_toB_dist_df
         gc.collect()
@@ -245,7 +258,7 @@ class FacilitylocationCurrentstatus():
         """
         # 仓 → 目的地中转场 → 中转 → 支线
         # 参数
-        trunk_price = self.trunk_price
+        trunk_price = self.dis_price_toB_trunk
         transit_price = self.dis_price_toB_transit
         dist_price = self.dis_price_toB_dist
 
@@ -531,7 +544,7 @@ class FacilitylocationCurrentstatus():
                 rdc_output['Avg_Cost'] = rdc_output['Total_Cost'] / rdc_output['Weight']
             else:
                 rdc_output['CDC_Shipping_Cost'] = cdc_shipping_cost_d[rdc_name]
-                rdc_output['Shipping_Cost'] = rdc_shipping_cost_d[rdc_name]
+                rdc_output['Shipping_Cost'] = rdc_shipping_cost_d[rdc_name]['cost']
                 rdc_output['Reverse_Cost'] = reverse_cost_d[rdc_name]
                 rdc_output['Storage_Cost'] = rental_cost_d[rdc_name]
                 rdc_output['Reverse_Storage_Cost'] = reverse_rental_cost_d[rdc_name]
@@ -654,9 +667,9 @@ if __name__ == "__main__":
     config=Config()
     current_status = FacilitylocationCurrentstatus(filename,config)
 
-    if not os.path.exists('350_results'):
-        os.mkdir('350_results')
-    filepath = '350_results'
+    if not os.path.exists('5吨_results'):
+        os.mkdir('5吨_results')
+    filepath = '5吨_results'
 
     performance, rdc_output = current_status.resultformat()
     handle_cdc_work,unuse_factory = current_status.handle_cdcwork()
