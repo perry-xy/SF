@@ -77,8 +77,9 @@ class DataHandler():
                                                                dtype=object).value
         dis_price_toB_dist_df = wb.sheets['Dis_Dist'].range('A1').options(pd.DataFrame, expand='table', index=False,
                                                                dtype=object).value
-        dis_price_toB_trunk_df = wb.sheets['Dist_Trunk'].range('A1').options(pd.DataFrame, expand='table', index=False,
-                                                               dtype=object).value
+        # dis_price_toB_trunk_df = wb.sheets['Dist_Trunk'].range('A1').options(pd.DataFrame, expand='table', index=False,
+        #                                                        dtype=object).value
+        dis_price_toB_trunk_df = pd.read_csv("data/Dis_Trunk.csv")
 
         print("数据读取结束：" + str(datetime.datetime.now()))
 

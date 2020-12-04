@@ -194,8 +194,8 @@ class FacilityLocation():
         rdc_cand = self.data_input.rdc_cand
         customer = self.data_input.customer
         demand = self.data_input.demand
-        trunk_price = self.data_input.trunk_price
-        dist_turnk_price = self.data_input.dis_price_toB_trunk
+        trunk_price = self.dis_price_toB_trunk
+        # dist_turnk_price = self.data_input.dis_price_toB_trunk
         transit_price = self.data_input.dis_price_toB_transit
         dist_price = self.data_input.dis_price_toB_dist
 
