@@ -31,12 +31,12 @@ data_input = DataHandler('data/quantity_train.csv', id_column = Config.id_column
                          target_column = Config.target_column)
 handled_data = data_input.data_transform()  # 做好预处理的数据
 
-date = '1204'
-# pre_handled_data = DataHandler.predict_handle('data/{}_predict_input.csv'.format(date))
-#
-# handled_data = pd.concat([handled_data, pre_handled_data], axis = 0)
-# handled_data.sort_values(by = [Config.id_column, Config.time_column], ascending = (True,True), inplace = True)
-# handled_data.reset_index(drop = True, inplace = True)
+date = '1208'
+pre_handled_data = DataHandler.predict_handle('data/{}_predict_input.csv'.format(date))
+
+handled_data = pd.concat([handled_data, pre_handled_data], axis = 0)
+handled_data.sort_values(by = [Config.id_column, Config.time_column], ascending = (True,True), inplace = True)
+handled_data.reset_index(drop = True, inplace = True)
 
 if Model_Select_Config.model_type == 'all': # 如果总体训练
 

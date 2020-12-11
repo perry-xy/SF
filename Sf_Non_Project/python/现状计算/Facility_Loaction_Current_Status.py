@@ -14,8 +14,11 @@ class Config():
     模型调节参数，可用来调节是否考虑调拨成本、支线的配送方式是to_B或to_C等
     """
     reverse_compute = True
-    distribute_ToB = True
-    distribute_ToC = False
+    distribute_ToB = False
+    distribute_ToC = True
+
+    avg_weight = 12.5
+    year_day = 365
 
 class FacilitylocationCurrentstatus():
     """
@@ -27,8 +30,8 @@ class FacilitylocationCurrentstatus():
         """
         self.filename=filename
         self.config=config
-        self.weight_avg=12.5
-        self.YEAR_DAY=365
+        self.weight_avg = config.avg_weight
+        self.YEAR_DAY = config.year_day
         self.sku=dict()
         self.demand=dict()
         self.warehouse=dict()
@@ -259,6 +262,7 @@ class FacilitylocationCurrentstatus():
         # 仓 → 目的地中转场 → 中转 → 支线
         # 参数
         trunk_price = self.dis_price_toB_trunk
+        # trunk_price = self.trunk_price
         transit_price = self.dis_price_toB_transit
         dist_price = self.dis_price_toB_dist
 
@@ -544,7 +548,10 @@ class FacilitylocationCurrentstatus():
                 rdc_output['Avg_Cost'] = rdc_output['Total_Cost'] / rdc_output['Weight']
             else:
                 rdc_output['CDC_Shipping_Cost'] = cdc_shipping_cost_d[rdc_name]
-                rdc_output['Shipping_Cost'] = rdc_shipping_cost_d[rdc_name]['cost']
+                if config.distribute_ToB:
+                    rdc_output['Shipping_Cost'] = rdc_shipping_cost_d[rdc_name]['cost']
+                else:
+                    rdc_output['Shipping_Cost'] = rdc_shipping_cost_d[rdc_name]
                 rdc_output['Reverse_Cost'] = reverse_cost_d[rdc_name]
                 rdc_output['Storage_Cost'] = rental_cost_d[rdc_name]
                 rdc_output['Reverse_Storage_Cost'] = reverse_rental_cost_d[rdc_name]
@@ -663,13 +670,13 @@ class FacilitylocationCurrentstatus():
 
 
 if __name__ == "__main__":
-    filename = 'data/current_status_input.xlsx'
+    filename = 'data/current_status_input3.0.xlsx'
     config=Config()
     current_status = FacilitylocationCurrentstatus(filename,config)
 
-    if not os.path.exists('5吨_results'):
-        os.mkdir('5吨_results')
-    filepath = '5吨_results'
+    filepath = 'to_C_new_demand_results_2020'
+    if not os.path.exists(filepath):
+        os.mkdir(filepath)
 
     performance, rdc_output = current_status.resultformat()
     handle_cdc_work,unuse_factory = current_status.handle_cdcwork()

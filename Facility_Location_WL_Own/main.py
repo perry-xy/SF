@@ -1,6 +1,4 @@
 from core.datahandle import DemandVisualization
-from core.facility_location import FacilityLocation
-from core.result_format import ResultFormat
 import pandas as pd
 import os
 
@@ -8,6 +6,9 @@ class Config():
     """
     模型调节参数
     """
+    # to_B或to_C计算模式
+    distribution_toB = True
+
     #固定参数
     YEAR_DAY=365
     num_rdc=None
@@ -16,23 +17,31 @@ class Config():
     inventory_ratio = 1 #库存面积的比例，租用仓库时需要租大一点
 
     #是否有指定仓
-    rdc_use_constr_open = False
+    rdc_use_constr_open = True
     if rdc_use_constr_open:
-        rdc_use = ['24','28','572','769','27','22']
+        rdc_use = ['760','28','711','572','22','531']
+        # rdc_use = ['711']
     cdc_use_constr_open = False
     if rdc_use_constr_open:
         cdc_use = []
 
-filename='data/input.xlsx'
+if Config.distribution_toB:
+    from core.facility_location_toB import FacilityLocation
+    from core.result_format_toB import ResultFormat
+else:
+    from core.facility_location_toC import FacilityLocation
+    from core.result_format_toC import ResultFormat
+
+filename='data/input2.0.xlsx'
 data_input=DemandVisualization(filename)
 #data_input.demandvisual()  #是否画需求分布图
 df_performance = pd.DataFrame()
-filepath = '1.5_0.2_area_ratio'
+filepath = 'to_B_531'
 if not os.path.exists('{}/'.format(filepath)):
     os.mkdir('{}'.format(filepath))
 
-for warehouse_num in range(1,15):
-#for warehouse_num in [3,4,5,6,7]:
+# for warehouse_num in range(1,14):
+for warehouse_num in [6]:
     Config.num_rdc=warehouse_num
     Config.area_ratio=data_input.warehouse_area_ratio[warehouse_num]
 
