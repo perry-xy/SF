@@ -14,8 +14,8 @@ class Config():
     模型调节参数，可用来调节是否考虑调拨成本、支线的配送方式是to_B或to_C等
     """
     reverse_compute = True
-    distribute_ToB = False
-    distribute_ToC = True
+    distribute_ToB = True
+    distribute_ToC = False
 
     avg_weight = 12.5
     year_day = 365
@@ -674,7 +674,7 @@ if __name__ == "__main__":
     config=Config()
     current_status = FacilitylocationCurrentstatus(filename,config)
 
-    filepath = 'to_C_new_demand_results_2020'
+    filepath = 'to_B_2020'
     if not os.path.exists(filepath):
         os.mkdir(filepath)
 

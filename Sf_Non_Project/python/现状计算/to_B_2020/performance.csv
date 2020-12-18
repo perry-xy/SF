@@ -1,0 +1,2 @@
+trans_cost,dist_cost,storage_cost,in_bound_cost,out_bound_cost,reverse_cost,reverse_storage_cost,reverse_in_bound_cost,reverse_out_bound_cost,total_cost,Trunk_cost,Transit_cost,Dist_cost,rdc_area,reverse_area,rdc_weight,reverse_weight,rdc_shipping_distance,reverse_shipping_distance
+10506671.797324672,97307741.39722905,21505258.067946035,0.0,25244959.950465176,0.0,0.0,0.0,0.0,154564631.21296492,33803342.9189259,44929095.72333118,18575302.754971974,71429.7209713413,0.0,136263133.3280178,0.0,224010.03166480004,28002.8633338

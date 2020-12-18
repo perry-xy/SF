@@ -41,7 +41,7 @@ target = 'predict'
 solution_path = "results/solution_{}_{}_{}.json".format(mode, Config.target, Config.level)
 if mode == 'deterministic':
     result_solution = {}
-    for key in data_ins.demands.keys():
+    for key in data_ins.demands.keys():  # key：日期
         data_ins.demands_daily = (data_ins.demands[key])
         scheduler = Scheduler(Config, data_ins)
         key = pd.to_datetime(key)

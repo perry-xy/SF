@@ -26,11 +26,15 @@ class FacilityLocation():
             建模
                  """
         """定义参数"""
-        # 必须用的cdc、rdc
+        # 必须用的cdc、rdc & 不考虑的cdc、rdc
         if self.config.rdc_use_constr_open:
             rdc_use=self.config.rdc_use
         if self.config.cdc_use_constr_open:
             cdc_use=self.config.cdc_use
+        # if self.config.rdc_unuse_constr_open:
+        #     rdc_unuse=self.config.rdc_unuse
+        # if self.config.cdc_unuse_constr_open:
+        #     cdc_use=self.config.cdc_unuse
         # 需求点、候选rdc、cdc、区仓需求点
         customer = self.data_input.customer
         rdc_cand = self.data_input.rdc_cand

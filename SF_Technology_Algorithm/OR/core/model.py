@@ -17,10 +17,10 @@ random.seed(a=100)    #设置随机生成器的种子，保证可重复性
 # define the log file
 log = Logger(log_path='../log').logger
 
-REC_COST = 1
-SEND_COST = 1
-REC_DISCOUNT_COST = 18
-SEND_DISCOUNT_COST = 12
+REC_COST = 1             # 收件成本
+SEND_COST = 1            # 派件成本
+REC_DISCOUNT_COST = 18   # 丢收件成本
+SEND_DISCOUNT_COST = 12  # 丢派件成本
 SAMPLES = 4
 SIGMA_REC = 12
 SIGMA_SEND = 12
@@ -46,8 +46,8 @@ class Scheduler(object):
         :return:
         """
         # Params
-        basic_cost = self.data.basic_cost
-        capacity = self.data.capacity
+        basic_cost = self.data.basic_cost  # 保底成本
+        capacity = self.data.capacity      # key：小哥，value：收件能力，派件能力
         # capacity_cost = self.data.capacity_cost
 
         # Data
@@ -59,26 +59,27 @@ class Scheduler(object):
         model = Model('scheduler optimization model')
 
         # Variables
-        allocation = model.addVars(employees, zones, vtype=GRB.BINARY, name='allocation')
-        rec_quantity = model.addVar(lb=0, vtype=GRB.INTEGER, name="rec_quantity")
-        send_quantity = model.addVar(lb=0, vtype=GRB.INTEGER, name="send_quantity")
-        rec_discount = model.addVar(lb=0, vtype=GRB.INTEGER, name="receive_discount")
-        send_discount = model.addVar(lb=0, vtype=GRB.INTEGER, name="send_discount")
+        allocation = model.addVars(employees, zones, vtype=GRB.BINARY, name='allocation')    # 小哥与区域的分配关系
+        rec_quantity = model.addVar(lb=0, vtype=GRB.INTEGER, name="rec_quantity")            # 今日实际收件数量
+        send_quantity = model.addVar(lb=0, vtype=GRB.INTEGER, name="send_quantity")          # 今日实际派件数量
+        rec_discount = model.addVar(lb=0, vtype=GRB.INTEGER, name="receive_discount")        # 今日所丢收件数量
+        send_discount = model.addVar(lb=0, vtype=GRB.INTEGER, name="send_discount")          # 今日所丢派件数量
 
         # Constraints
         model.addConstrs((allocation.sum(name, '*') <= 1 for name in employees), name='zone constraints')
+                                                                                # 每个小哥最多安排在一个区域里
+        model.addConstr(quicksum(quicksum(allocation[em, zone]*capacity[em]['receive'] for em in employees) for zone in zones)
+                        >= rec_quantity, name='receive_quantity')               # 所分配的小哥的收件能力 >= 今日实际收件数量
+        model.addConstr(quicksum(quicksum(allocation[em, zone]*capacity[em]['send'] for em in employees) for zone in zones)
+                        >= send_quantity, name='send_quantity')                 # 所分配的小哥的派件能力 >= 今日实际派件数量
 
-        model.addConstr(quicksum(quicksum(allocation[em, zone]*capacity[em]['receive'] for em in employees) for zone in zones) >= rec_quantity
-                        , name='receive_quantity')
-        model.addConstr(quicksum(quicksum(allocation[em, zone]*capacity[em]['send'] for em in employees) for zone in zones) >= send_quantity
-                            , name='send_quantity')
-        if self.config.target == 'predict':
+        if self.config.target == 'predict':     # 使用预测值排班
             log.info('using the predicted value as optimized target')
             model.addConstr(rec_quantity + rec_discount >= sum(demands[zone]['receive_predict'] for zone in zones),
-                                name='receive capacity constratins')
+                                name='receive capacity constratins')            # 实际派的件 + 丢掉的派的件 >= 今日总派件需求
             model.addConstr(send_quantity + send_discount >= sum(demands[zone]['send_predict'] for zone in zones),
-                                name='send capacity constratins')
-        else:
+                                name='send capacity constratins')               # 实际收的件 + 丢掉的收的件 >= 今日总收件需求
+        else:                                   # 使用实际值排班
             log.info('using the reality value as optimized target')
             model.addConstr(rec_quantity + rec_discount >= sum(demands[zone]['receive'] for zone in zones),
                                 name='receive capacity constratins')
@@ -86,7 +87,7 @@ class Scheduler(object):
                                 name='send capacity constratins')
 
         model.update()
-        # objectives
+        # objectives    # 保底成本 + 实际派件成本 + 实际收件成本 + 所丢收件成本 + 所丢派件成本
         objectives = quicksum(quicksum(allocation[em, zone]*basic_cost[em] for em in employees) for zone in zones) \
                      + rec_quantity * REC_COST \
                      + send_quantity * SEND_COST \
@@ -94,8 +95,8 @@ class Scheduler(object):
                      + send_discount * SEND_DISCOUNT_COST
 
         # set the params
-        model.setParam('MIPGap', 0.005)
-        model.setParam('TimeLimit', 200)
+        model.setParam('MIPGap', 0.005)         # 停止条件1：上下界的差距小于0.5%
+        model.setParam('TimeLimit', 200)        # 停止条件2：最长运行200s
         # set the target
         model.setObjective(objectives, GRB.MINIMIZE)
         # optimize the model
@@ -139,25 +140,25 @@ class Scheduler(object):
         model = Model('scheduler optimization model')
 
         # Variables
-        allocation = model.addVars(employees, zones, vtype=GRB.BINARY, name='allocation')
-        rec_quantity = model.addVars(zones, vtype=GRB.INTEGER, name="rec_quantity")
-        send_quantity = model.addVars(zones, vtype=GRB.INTEGER, name="send_quantity")
-        rec_discount = model.addVars(zones, vtype=GRB.INTEGER, name="receive_discount")
-        send_discount = model.addVars(zones, vtype=GRB.INTEGER, name="send_discount")
+        allocation = model.addVars(employees, zones, vtype=GRB.BINARY, name='allocation')   # 小哥与区域的覆盖关系
+        rec_quantity = model.addVars(zones, vtype=GRB.INTEGER, name="rec_quantity")         # 每个区域的实际收件数量
+        send_quantity = model.addVars(zones, vtype=GRB.INTEGER, name="send_quantity")       # 每个区域的实际派件数量
+        rec_discount = model.addVars(zones, vtype=GRB.INTEGER, name="receive_discount")     # 每个区域的实际所丢收件数量
+        send_discount = model.addVars(zones, vtype=GRB.INTEGER, name="send_discount")       # 每个区域的实际所丢派件数量
 
         # Constraints
         model.addConstrs((allocation.sum(name, '*') <= 1 for name in employees), name='zone constraints')
         log.info('using the {} value as optimized target'.format(self.config.target))
         for zone in zones:
             model.addConstr(quicksum(allocation[em, zone]*capacity[em]['receive'] for em in employees) >= rec_quantity[zone]
-                            , name='receive_quantity')
+                            , name='receive_quantity')                         # 每个zone：所排小哥的收件能力 >= 实际收件数量
             model.addConstr(quicksum(allocation[em, zone]*capacity[em]['send'] for em in employees) >= send_quantity[zone]
-                            , name='send_quantity')
+                            , name='send_quantity')                            # 每个zone：所排小哥的派件能力 >= 实际派件数量
             if self.config.target == "predict":
                 model.addConstr(rec_quantity[zone] + rec_discount[zone] == demands[zone]['receive_predict'],
-                                name='receive capacity constratins')
+                                name='receive capacity constratins')       # 每个zone：实际收件数量 + 实际所丢收件数量 = 预测收件数量
                 model.addConstr(send_quantity[zone] + send_discount[zone] == demands[zone]['send_predict'],
-                                name='send capacity constratins')
+                                name='send capacity constratins')          # 每个zone：实际派件数量 + 实际所丢派件数量 = 预测派件数量
             else:
                 model.addConstr(rec_quantity[zone] + rec_discount[zone] == demands[zone]['receive'],
                                 name='receive capacity constratins')
@@ -165,7 +166,7 @@ class Scheduler(object):
                                 name='send capacity constratins')
 
         model.update()
-        # objectives
+        # objectives   # sigma zone：保底成本 + 实际收件成本 + 实际派件成本 + 实际所丢收件成本 + 实际所丢派件成本
         objectives = quicksum(quicksum(allocation[em, zone]*basic_cost[em] for em in employees)
                               + rec_quantity[zone] * REC_COST
                               + send_quantity[zone] * SEND_COST
@@ -289,12 +290,12 @@ class Scheduler(object):
         demands = self.data.demands_daily
         receive_samples = self.data.receive_samples_daily
         send_samples = self.data.send_samples_daily
-        samples = SAMPLES
+        samples = SAMPLES   # 4
         # samples_prob = [0.1, 0.1,0.1,0.1,0.1,0.4,0.]
         # Generate the predicted error samples
-        sigma_rec = SIGMA_REC
-        sigma_send = SIGMA_SEND
-        mu = MU  # 均值
+        sigma_rec = SIGMA_REC # 12
+        sigma_send = SIGMA_SEND # 12
+        mu = MU  # 均值  0
         # predict_errors_rec = [max(int(random.normalvariate(mu, sigma_rec)), 0) for i in range(samples)]   # 取正值
         # predict_errors_send =[max(int(random.normalvariate(mu, sigma_send)), 0) for i in range(samples)]   # 取正值
         # predict_errors_rec = [int(random.normalvariate(mu, sigma_rec)) for i in range(samples)]   # 取正负值
@@ -381,7 +382,7 @@ class Scheduler(object):
         # Generate the predicted error samples
         sigma_rec = SIGMA_REC
         sigma_send = SIGMA_SEND
-        mu = MU  # 均值
+        mu = MU  # 均值  0
         predict_errors_rec = [max(int(random.normalvariate(mu, sigma_rec)), 0) for i in range(samples)]   # 取正值
         predict_errors_send =[max(int(random.normalvariate(mu, sigma_send)), 0) for i in range(samples)]   # 取正值
         # Model

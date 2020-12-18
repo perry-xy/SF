@@ -17,11 +17,12 @@ class DataHandler():
         数据预处理
                     """
 
-    def __init__(self, filename):
+    def __init__(self, filename, config):
         """
             filename 文件名
                                 """
         self.filename = filename
+        self.config = config
         self.demand = dict()  # 需求点数据
         self.sku = dict()  # sku信息
         self.warehouse = dict()  # 候选仓信息
@@ -77,9 +78,13 @@ class DataHandler():
                                                                dtype=object).value
         dis_price_toB_dist_df = wb.sheets['Dis_Dist'].range('A1').options(pd.DataFrame, expand='table', index=False,
                                                                dtype=object).value
-        # dis_price_toB_trunk_df = wb.sheets['Dist_Trunk'].range('A1').options(pd.DataFrame, expand='table', index=False,
-        #                                                        dtype=object).value
-        dis_price_toB_trunk_df = pd.read_csv("data/Dis_Trunk.csv")
+        if self.config.distribution_toB and self.config.real_toB:
+            dis_price_toB_trunk_df = wb.sheets['Dist_Trunk'].range('A1').options(pd.DataFrame, expand='table', index=False,
+                                                               dtype=object).value
+            print("支线_干线采用财务&O线的数据。")
+        else:
+            dis_price_toB_trunk_df = pd.read_csv("data/Dis_Trunk.csv")
+            print("支线_干线采用顺陆的数据。")
 
         print("数据读取结束：" + str(datetime.datetime.now()))
 
@@ -218,8 +223,8 @@ class DemandVisualization(DataHandler):
     需求分布热力图
     """
 
-    def __init__(self, filename):
-        super().__init__(filename)
+    def __init__(self, filename, config):
+        super().__init__(filename, config)
 
     def demandvisual(self):
 

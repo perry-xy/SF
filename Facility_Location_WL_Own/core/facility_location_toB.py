@@ -209,6 +209,11 @@ class FacilityLocation():
         shipping_diistance_d = dict() #各rdc的配送距离
         shipping_distance = 0  # 总配送距离
 
+        if self.config.real_toB:
+            print("支线_干线中转采用始发地→目的地。")
+        else:
+            print("支线_干线中转采用目的地→目的地。")
+
         for rdc_name in rdc_cand:
             trunk = 0
             transit = 0
@@ -217,7 +222,10 @@ class FacilityLocation():
             distance = 0
             for name in customer:
                 trunk += r_c[rdc_name, name] * demand[name]['weight'] * trunk_price[rdc_name, name]['trans_fee']
-                transit += r_c[rdc_name, name] * demand[name]['weight'] * transit_price[name, name]['transit_fee']
+                if self.config.real_toB:
+                    transit += r_c[rdc_name, name] * demand[name]['weight'] * transit_price[rdc_name, name]['transit_fee']
+                else:
+                    transit += r_c[rdc_name, name] * demand[name]['weight'] * transit_price[name, name]['transit_fee']
                 dist += r_c[rdc_name, name] * demand[name]['weight'] * dist_price[name]['dist_fee']
                 distance += r_c[rdc_name, name] * trunk_price[rdc_name, name]['distance']
             cost = trunk + transit + dist

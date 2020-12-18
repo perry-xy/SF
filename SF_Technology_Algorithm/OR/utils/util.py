@@ -68,10 +68,10 @@ class DataHandler(object):
         处理小哥的信息
         :return:
         """
-        self.basic_cost = {}
-        self.employees = []
-        self.capacity = {}
-        self.capacity_cost = {}
+        self.basic_cost = {}     # dict
+        self.employees = []      # list
+        self.capacity = {}       # dict
+        self.capacity_cost = {}  # dict
         for idx, row in self._employees.iterrows():
             name_id = row['小哥id']
             self.employees.append(name_id)
@@ -82,7 +82,6 @@ class DataHandler(object):
                                           }
                 self.capacity_cost[name_id] = {'receive': row['收件成本'],
                                                'send': row['派件成本'],
-
                                                }
 
     def _demand_process(self):
@@ -90,8 +89,8 @@ class DataHandler(object):
         进行需求预测的处理
         :return:
         """
-        self.zones = []
-        self.demands = {}
+        self.zones = []     # list
+        self.demands = {}   # dict
         time_list = self._demands['时间'].unique()
         self.zones = self._demands['区域id'].unique().tolist()
         for t in time_list:
@@ -103,7 +102,7 @@ class DataHandler(object):
                                          'send': row['派件量'],
                                          'receive_predict': row['收件量预测'],
                                          'send_predict': row['派件量预测']}
-            self.demands[t] = demands_dict
+            self.demands[t] = demands_dict     # key：日期，value：dict：key：zone_id，value：receive,send,receive_predict,send_predict
 
     def _predict_samples_process(self):
         """

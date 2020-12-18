@@ -197,35 +197,45 @@ class ResultFormat():
                         + [z.upper() for z in category_list]
         return df_c
 
-    def handle_cdc_work(self,cdc_category_capacity_df):
+    def handle_cdc_work(self, cdc_category_capacity_df):
         """
         处理供应商网络关系，明示各SKU供货供应商所在地
         """
-        cdc_category_capacity_df = cdc_category_capacity_df.set_index(['CDC_Name','RDC_Name'])
-        cdc_category_capacity_df.drop(['CDC_LAT','CDC_LGT','RDC_LAT','RDC_LGT'],axis=1)
-
         rdc_open_valid = {k: v for k, v in self.model_result.rdc_open.items() if v > 0.5}
+        cdc_category_capacity_df.reset_index(drop=True, inplace=True)
 
-        cdc_category_capacity_d = dict()
-        for rdc in rdc_open_valid.keys():
-            rdc_category_capacity = cdc_category_capacity_df.iloc[[flow[1] == rdc for flow in cdc_category_capacity_df.index],]
-            rdc_cn_name = self.model_result.data_input.GIS[rdc]['city_name_cn']
-            cdc_category_capacity_d[rdc_cn_name] = dict()
+        column_name = ['供应商代码', '供应商城市', '供应商_LAT', '供应商_LGT', 'RDC代码', 'RDC城市', 'RDC_LAT', 'RDC_LGT', 'SKU_NO', '品类',
+                       '重量(kg)']
+        cdc_category_capacity = pd.DataFrame(columns=column_name)
+
+        for idx, row in cdc_category_capacity_df.iterrows():
+            cdc = row['CDC_Name']
+            cdc_cn = self.model_result.data_input.GIS[row['CDC_Name']]['city_name_cn']
+            cdc_lat = row['CDC_LAT']
+            cdc_lgt = row['CDC_LGT']
+            rdc = row['RDC_Name']
+            rdc_cn = self.model_result.data_input.GIS[row['RDC_Name']]['city_name_cn']
+            rdc_lat = row['RDC_LAT']
+            rdc_lgt = row['RDC_LGT']
             for sku in self.model_result.data_input.category_list:
-                for flow, row in rdc_category_capacity.iterrows():
-                    cdc_cn_name = self.model_result.data_input.GIS[flow[0]]['city_name_cn']
-                    if row[sku.upper()] > 0:
-                        sku_name = self.model_result.data_input.sku[sku.lower()]['name']
-                        cdc_category_capacity_d[rdc_cn_name][sku_name] = (cdc_cn_name, int(round(row[sku.upper()])))
+                if row[sku.upper()] > 0:
+                    sku_cn = self.model_result.data_input.sku[sku.lower()]['name']
+                    sku_weight = int(round(row[sku.upper()]))
+                    df = pd.DataFrame(
+                        [cdc, cdc_cn, cdc_lat, cdc_lgt, rdc, rdc_cn, rdc_lat, rdc_lgt, sku.upper(), sku_cn,
+                         sku_weight]).T
+                    df.columns = column_name
+                    cdc_category_capacity = cdc_category_capacity.append(df)
 
-        df_handle_cdc_work = pd.DataFrame(cdc_category_capacity_d)
+        cdc_category_capacity.sort_values(by=['RDC代码', 'SKU_NO'], ascending=[True, True], ignore_index=True,
+                                          inplace=True)
 
         factory_unuse = {factory: self.model_result.data_input.GIS[factory]['city_name_cn'] for factory in \
                          (set(self.model_result.data_input.cdc_cand) - self.model_result.cdc_open)}
-        #factory_unuse_list = [self.model_result.data_input.GIS[factory]['city_name_cn'] for factory in factory_unuse]
-        factory_unuse_df = pd.DataFrame(factory_unuse,index=[0])
+        # factory_unuse_list = [self.model_result.data_input.GIS[factory]['city_name_cn'] for factory in factory_unuse]
+        factory_unuse_df = pd.DataFrame(factory_unuse, index=[0])
 
-        return df_handle_cdc_work, factory_unuse_df
+        return cdc_category_capacity, factory_unuse_df
 
     def performance(self,m):
         """

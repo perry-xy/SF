@@ -31,6 +31,7 @@ class Sensitivity(object):
             else:
                 datas = {}
         return datas
+
     def Cost_json(self,op=None,delta = 0):
 
         cost_dict = defaultdict(int)

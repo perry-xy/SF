@@ -8,6 +8,7 @@ class Config():
     """
     # to_B或to_C计算模式
     distribution_toB = True
+    real_toB = True  # 先启动distribution_toB; True: to_B方式模式二，False：to_B方式模式三
 
     #固定参数
     YEAR_DAY=365
@@ -17,9 +18,9 @@ class Config():
     inventory_ratio = 1 #库存面积的比例，租用仓库时需要租大一点
 
     #是否有指定仓
-    rdc_use_constr_open = True
+    rdc_use_constr_open = False
     if rdc_use_constr_open:
-        rdc_use = ['760','28','711','572','22','531']
+        rdc_use = ['769','28','24','572','27','22']
         # rdc_use = ['711']
     cdc_use_constr_open = False
     if rdc_use_constr_open:
@@ -28,19 +29,29 @@ class Config():
 if Config.distribution_toB:
     from core.facility_location_toB import FacilityLocation
     from core.result_format_toB import ResultFormat
+    print("使用to_B的模式计算。")
 else:
     from core.facility_location_toC import FacilityLocation
     from core.result_format_toC import ResultFormat
+    print("使用to_C的模式计算。")
 
 filename='data/input2.0.xlsx'
-data_input=DemandVisualization(filename)
+if filename ==  'data/input2.0.xlsx':
+    print('以21年的数据进行计算。')
+elif filename ==  'data/input3.0.xlsx':
+    print('以20年的数据进行计算。')
+else:
+    print('所计算的数据的年份未知。')
+
+data_input=DemandVisualization(filename, Config)
 #data_input.demandvisual()  #是否画需求分布图
 df_performance = pd.DataFrame()
-filepath = 'to_B_531'
+rdc_select = pd.DataFrame()
+filepath = 'real_to_B_'
 if not os.path.exists('{}/'.format(filepath)):
     os.mkdir('{}'.format(filepath))
 
-# for warehouse_num in range(1,14):
+# for warehouse_num in range(1,16):
 for warehouse_num in [6]:
     Config.num_rdc=warehouse_num
     Config.area_ratio=data_input.warehouse_area_ratio[warehouse_num]
@@ -64,6 +75,9 @@ for warehouse_num in [6]:
     performance=ResultFormat(model).performance(warehouse_num)
     df_performance=df_performance.append(performance)
 
-df_performance.to_csv('{}/performance.csv'.format(filepath), encoding = 'utf-8_sig',index=False)
+    rdc_select = rdc_select.append(df_rdc.loc[:,'City_name'].T)
 
+df_performance.to_csv('{}/performance.csv'.format(filepath), encoding = 'utf-8_sig',index=False)
+rdc_select.index = list(range(warehouse_num - len(rdc_select) + 1,warehouse_num + 1))
+rdc_select.to_csv('{}/rdc_select.csv'.format(filepath), encoding = 'utf-8_sig')
 
