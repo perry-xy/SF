@@ -30,7 +30,7 @@ if not os.path.exists('results'):
     os.mkdir('results')
 
 # load the data
-filename = "data_input_level_80cvar.xlsx"
+filename = "1130_data_input_level.xlsx"
 data_ins = DataHandler(file=filename, config=Config)
 # mode = 'initial'
 mode = 'deterministic'

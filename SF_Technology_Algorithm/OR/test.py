@@ -17,16 +17,17 @@ class Config(object):
 # load the data
 
 
-filename = "data_input_level_80cvar.xlsx"
+filename = "1130_data_input_level.xlsx"
 data_ins = DataHandler(file=filename, config=Config)
+print(data_ins.demands)
 mode = 'deterministic'
-target = 'reality'
-# target = 'predict'
-level = '12_02_reality'
+# target = 'reality'
+target = 'predict'
+level = '12_02_80var_var'
 # mode = 'expected'
 # mode = 'expected_cvar'
 test_mode = 'optimized'
-test_mode = 'reality'
+# test_mode = 'reality'
 solution_path = "results/solution_{}_{}_{}.json".format(mode, target, level)
 optimized_json_path = "results/best_strategy.json"
 
