@@ -111,9 +111,9 @@ if __name__ == '__main__':
     print(t.route)
     print(t.bestcost)
     print(t.curroute)
-    for i in range(1000):
+    for i in range(10000):
         t.step()
-        if i % 50 == 0:
+        if i % 500 == 0:
             print(t.bestcost)
             print(t.bestroute)
             print(t.curroute)

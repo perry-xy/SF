@@ -10,14 +10,14 @@ class TabuSearch():
         :param sample_length: 候选集合长度
         :param tabu_length: 禁忌长度
         """
-        self.tabu_list = list()             # 禁忌表
         self.sample_length = sample_length  # 候选集合长度
         self.tabu_length = tabu_length      # 禁忌表长度
 
+        self.tabu_list = list()  # 禁忌表
         self.citys, self.city_ids, self.start_id = self.loaddata()
-        self.curroute = self.randomroute()  # 当前的路径，第一次初始化产生
-        self.bestcost = float('inf')        # 代价函数，初始化为无穷大
-        self.bestroute = None               # 代价函数最小的路径
+        self.curroute = self.randomroute()  # 当前的路径；第一次初始化产生
+        self.bestcost = float('inf')        # 代价函数值；初始化为无穷大
+        self.bestroute = None               # 代价函数值最小的路径
 
     def loaddata(self, start_id = 1):
        """
@@ -43,48 +43,46 @@ class TabuSearch():
         :return:
         """
         rt = self.city_ids.copy()
-        random.shuffle(rt)
-        rt.remove(self.start_id)
-        rt.insert(0, self.start_id)  # 从start_id出发
-        rt.append(self.start_id)  # 回到start_id
+        random.shuffle(rt)           # 打乱rt的顺序
+        rt.remove(self.start_id)     # 去除起始点
+        rt.insert(0, self.start_id)  # 把起始点放至第一个位置，作为出发点
+        rt.append(self.start_id)     # 把起始点放至最后一个位置，作为到达点
 
         return rt
 
     def randomswap(self, route):
         """
         随机交换路径的两个节点
-        :param route:
+        :param route: 原始路径
         :return:
         """
+        route_copy = route.copy()
         while True:
-            a = random.choice(route)
-            b = random.choice(route)
+            a = random.choice(route_copy)
+            b = random.choice(route_copy)
             if a == b or a == 1 or b == 1:   # 相同节点，或者为1号点，重新取
                 continue
-            ia, ib = route.index(a), route.index(b)
-            route[ia], route[ib] = b, a
+            ia, ib = route_copy.index(a), route_copy.index(b)   # ia：a的下标; ib：b的下标
+            route_copy[ia], route_copy[ib] = b, a      # a、b互换
 
-            return route, a, b
+            return route_copy, a, b               # 返回swap完后的路径，互换的两个元素
 
     def costroad(self, road):
         """
         计算当前路径的长度
-        :param road:
+        :param road: 路径列表
         :return:
         """
-        d = -1  # 给初始点
-        st = 0, 0
-        cur = 0, 0
-        city = self.citys
+        d = -1   # 长度值
+        cur = None  # 节点暂存变量
         for v in road:
             if d == -1:
-                st = city[v]  # 1号点
-                cur = st
+                cur = self.citys[v]  # 左点第一次为1号点
                 d = 0
             else:
-                d += ((cur[0] - city[v][0]) ** 2 + (
-                            cur[1] - city[v][1]) ** 2) ** 0.5  # 计算所求解的距离，这里为了简单，视作二位平面上的点，使用了欧式距离
-                cur = city[v]
+                d += ((cur[0] - self.citys[v][0]) ** 2 + (
+                            cur[1] - self.citys[v][1]) ** 2) ** 0.5  # 计算所求解的距离，这里为了简单，视作二位平面上的点，使用了欧式距离
+                cur = self.citys[v]  # 更新左点
 
         return d
 
@@ -93,24 +91,26 @@ class TabuSearch():
         禁忌搜索
         :return:
         """
-        rt = self.curroute   # 基于当前路径继续搜索
+        rt = self.curroute   # 基于当前路径继续搜索，第一次为随机初始化的点
 
         prepare = list()     # 候选集集合
-        swap_list = list()
+        swap_list = list()   # 互换集合
         while len(prepare) < self.sample_length:  # 产生候选路径
-            prt, swap_a, swap_b = self.randomswap(rt)
-            if ([swap_a, swap_b] not in swap_list) and ([swap_b, swap_a] not in swap_list):  # 不重复子集
+            prt, swap_a, swap_b = self.randomswap(rt)  # 产生一次互换
+            if ([swap_a, swap_b] not in swap_list) and ([swap_b, swap_a] not in swap_list) and (prt not in prepare):  # 不重复子集
                 swap_list.append([swap_a, swap_b])
-                prepare.append(prt.copy())
-        c = []
+                prepare.append(prt)
+
+        c = []    # 代价函数值
         for r in prepare:
             c.append(self.costroad(r))
-        mc = min(c)
-        mrt = prepare[c.index(mc)]  # 选出候选路径里最好的一条
-        swap = swap_list[c.index(mc)]
-        if mc < self.bestcost:   # 如果最小值小于当前最优
+        mc = min(c)   # 本次的最优解
+        mrt = prepare[c.index(mc)]  # 最优解对应的最好路径
+        swap = swap_list[c.index(mc)] # 最优解对应的互换
+
+        if mc < self.bestcost:   # 如果最小值小于当前最优，即有了更好的解
             self.bestcost = mc
-            self.bestroute = mrt.copy()  # 如果他比最好的还要好，那么记录下来
+            self.bestroute = mrt.copy()  # 记录下最好结果
             if (swap in self.tabu_list) or (swap[::-1] in self.tabu_list):  # 移动在禁忌表中
                 if swap in self.tabu_list:
                     self.tabu_list.pop(self.tabu_list.index(swap))
@@ -149,18 +149,17 @@ class TabuSearch():
         y = []
         print("最优路径长度:", self.bestcost)
         for i in self.bestroute:
-            x0, y0 = self.citys[i]
+            x0, y0 = self.citys[i][0], self.citys[i][1]
             x.append(x0)
             y.append(y0)
-        x.append(x[0])
-        y.append(y[0])
         pyplot.plot(x, y)
         pyplot.scatter(x, y)
+        pyplot.savefig('iterations_image')
 
 if __name__ == '__main__':
     import timeit
 
-    t = TabuSearch(sample_length = 200, tabu_length = 20)
+    t = TabuSearch(sample_length = 200, tabu_length = 7)
     print('ok')
     print(t.citys)
     print(t.curroute)
@@ -174,5 +173,5 @@ if __name__ == '__main__':
             print(t.curroute)
     t.plot_route()
     print('ok')
-    # print(timeit.timeit(stmt="t.step()", number=1000,globals=globals()))
+    print(timeit.timeit(stmt="t.step()", number=1000,globals=globals()))
     print('ok')
