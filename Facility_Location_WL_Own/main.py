@@ -18,9 +18,9 @@ class Config():
     inventory_ratio = 1 #库存面积的比例，租用仓库时需要租大一点
 
     #是否有指定仓
-    rdc_use_constr_open = True
+    rdc_use_constr_open = False
     if rdc_use_constr_open:
-        rdc_use = ['760','28','22','572','711','24']
+        rdc_use = ['769','28','22','572','711','24']
         # rdc_use = ['711']
     cdc_use_constr_open = False
     if rdc_use_constr_open:
@@ -47,11 +47,11 @@ data_input=DemandVisualization(filename, Config)
 #data_input.demandvisual()  #是否画需求分布图
 df_performance = pd.DataFrame()
 rdc_select = pd.DataFrame()
-filepath = '沈阳16块'
+filepath = '郑州28块_沈阳'
 if not os.path.exists('{}/'.format(filepath)):
     os.mkdir('{}'.format(filepath))
 
-# for warehouse_num in range(1,16):
+# for warehouse_num in range(5,9):
 for warehouse_num in [6]:
     Config.num_rdc=warehouse_num
     Config.area_ratio=data_input.warehouse_area_ratio[warehouse_num]
