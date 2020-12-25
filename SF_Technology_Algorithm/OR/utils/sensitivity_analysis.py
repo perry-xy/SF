@@ -11,7 +11,7 @@ import  pandas as pd
 import matplotlib.pyplot as plt
 import  numpy as np
 
-# plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 REC_COST = 1
 SEND_COST = 1
@@ -49,23 +49,13 @@ class Sensitivity(object):
                     day = datetime.strptime(day, '%Y-%m-%d')
                 if not type(day) is date:
                     day = datetime.date(day)
-                #
-                # demand_r = self.data_ins.demands[day][zone]['receive']
-                # demand_s = self.data_ins.demands[day][zone]['send']
-                # if op == 'send':
-                #     demand_r = self.data_ins.demands[day][zone]['receive']+delta
-                # if op=='rec':
-                #     demand_s = self.data_ins.demands[day][zone]['send']+delta
-                # for employee in employees:
-                #     cap_r += self.data_ins.capacity[employee]['receive']
-                #     cap_s += self.data_ins.capacity[employee]['send']
 
-                demand_r = self.data_ins.demands[day][zone]['receive_predict']
-                demand_s = self.data_ins.demands[day][zone]['send_predict']
+                demand_r = self.data_ins.demands[day][zone]['receive']
+                demand_s = self.data_ins.demands[day][zone]['send']
                 if op == 'send':
-                    demand_r = self.data_ins.demands[day][zone]['receive_predict']+delta
+                    demand_r = self.data_ins.demands[day][zone]['receive']+delta
                 if op=='rec':
-                    demand_s = self.data_ins.demands[day][zone]['send_predict']+delta
+                    demand_s = self.data_ins.demands[day][zone]['send']+delta
                 for employee in employees:
                     cap_r += self.data_ins.capacity[employee]['receive']
                     cap_s += self.data_ins.capacity[employee]['send']

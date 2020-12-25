@@ -8,7 +8,7 @@ class Config():
     """
     # to_B或to_C计算模式
     distribution_toB = True
-    real_toB = True  # 先启动distribution_toB; True: to_B方式模式二，False：to_B方式模式三
+    real_toB = False  # 先启动distribution_toB; True: to_B方式模式二，False：to_B方式模式三
 
     #固定参数
     YEAR_DAY=365
@@ -18,9 +18,9 @@ class Config():
     inventory_ratio = 1 #库存面积的比例，租用仓库时需要租大一点
 
     #是否有指定仓
-    rdc_use_constr_open = False
+    rdc_use_constr_open = True
     if rdc_use_constr_open:
-        rdc_use = ['769','28','24','572','27','22']
+        rdc_use = ['760','28','22','572','711','24']
         # rdc_use = ['711']
     cdc_use_constr_open = False
     if rdc_use_constr_open:
@@ -35,7 +35,7 @@ else:
     from core.result_format_toC import ResultFormat
     print("使用to_C的模式计算。")
 
-filename='data/input2.0.xlsx'
+filename='data/input3.0.xlsx'
 if filename ==  'data/input2.0.xlsx':
     print('以21年的数据进行计算。')
 elif filename ==  'data/input3.0.xlsx':
@@ -47,7 +47,7 @@ data_input=DemandVisualization(filename, Config)
 #data_input.demandvisual()  #是否画需求分布图
 df_performance = pd.DataFrame()
 rdc_select = pd.DataFrame()
-filepath = 'real_to_B_'
+filepath = '沈阳16块'
 if not os.path.exists('{}/'.format(filepath)):
     os.mkdir('{}'.format(filepath))
 

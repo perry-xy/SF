@@ -92,7 +92,6 @@ class DataHandler(object):
         self.zones = []     # list
         self.demands = {}   # dict
         time_list = self._demands['时间'].unique()
-        print(time_list)
         self.zones = self._demands['区域id'].unique().tolist()
         for t in time_list:
             demands_dict = {}
