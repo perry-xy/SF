@@ -1,20 +1,24 @@
 import random
 from matplotlib import pyplot
+from gurobipy import *
+import numpy as np
 
 class TabuSearch():
     """
     禁忌搜索求解TSP问题示例
     """
-    def __init__(self, sample_length, tabu_length):
+    def __init__(self, file_path, sample_length, tabu_length):
         """
+        :param file_path: 数据路径
         :param sample_length: 候选集合长度
         :param tabu_length: 禁忌长度
         """
+        self.file_path = file_path
         self.sample_length = sample_length  # 候选集合长度
         self.tabu_length = tabu_length      # 禁忌表长度
 
         self.tabu_list = list()  # 禁忌表
-        self.citys, self.city_ids, self.start_id = self.loaddata()
+        self.citys, self.city_ids, self.start_id, self.distance_matrix, self.city_numbers = self.loaddata()
         self.curroute = self.randomroute()  # 当前的路径；第一次初始化产生
         self.bestcost = float('inf')        # 代价函数值；初始化为无穷大
         self.bestroute = None               # 代价函数值最小的路径
@@ -25,17 +29,23 @@ class TabuSearch():
        :param start_id: 限定的出发及返回的点编号
        :return:
        """
-       citys = {1: (1150.0, 1760.0), 2: (630.0, 1660.0), 3: (40.0, 2090.0), 4: (750.0, 1100.0),
-                5: (750.0, 2030.0), 6: (1030.0, 2070.0), 7: (1650.0, 650.0), 8: (1490.0, 1630.0),
-                9: (790.0, 2260.0), 10: (710.0, 1310.0), 11: (840.0, 550.0), 12: (1170.0, 2300.0),
-                13: (970.0, 1340.0), 14: (510.0, 700.0), 15: (750.0, 900.0), 16: (1280.0, 1200.0),
-                17: (230.0, 590.0), 18: (460.0, 860.0), 19: (1040.0, 950.0), 20: (590.0, 1390.0),
-                21: (830.0, 1770.0), 22: (490.0, 500.0), 23: (1840.0, 1240.0), 24: (1260.0, 1500.0),
-                25: (1280.0, 790.0), 26: (490.0, 2130.0), 27: (1460.0, 1420.0), 28: (1260.0, 1910.0),
-                29: (360.0, 1980.0)}  # 原博客里的数据
+       citys = dict()
+       for line in open(self.file_path):
+           place, x, y = int(line.strip().split(' ')[0]), float(line.strip().split(' ')[1]), float(
+               line.strip().split(' ')[2])
+           citys[place] = (x, y)
        city_ids = list(citys.keys())
 
-       return citys, city_ids, start_id
+       distance_matrix = {}
+       for src in citys.keys():
+           for dest in citys.keys():
+               distance = (citys[dest][0] - citys[src][0]) ** 2 + (citys[dest][1] - citys[src][1]) ** 2
+               distance = np.sqrt(distance)
+               distance_matrix[src, dest] = distance
+
+       print(len(distance_matrix))
+       print(distance_matrix.keys())
+       return citys, city_ids, start_id, distance_matrix, len(city_ids)
 
     def randomroute(self):
         """
@@ -46,7 +56,8 @@ class TabuSearch():
         random.shuffle(rt)           # 打乱rt的顺序
         rt.remove(self.start_id)     # 去除起始点
         rt.insert(0, self.start_id)  # 把起始点放至第一个位置，作为出发点
-        rt.append(self.start_id)     # 把起始点放至最后一个位置，作为到达点
+        rt.remove(self.city_numbers) # 去除最后一个点
+        rt.append(self.city_numbers) # 将最后一个点放至最后一个位置
 
         return rt
 
@@ -60,7 +71,9 @@ class TabuSearch():
         while True:
             a = random.choice(route_copy)
             b = random.choice(route_copy)
-            if a == b or a == 1 or b == 1:   # 相同节点，或者为1号点，重新取
+            if a == b \
+                    or a == self.start_id or b == self.start_id \
+                    or a == self.city_numbers or b == self.city_numbers:   # 相同节点，或者为起始点，重新取
                 continue
             ia, ib = route_copy.index(a), route_copy.index(b)   # ia：a的下标; ib：b的下标
             route_copy[ia], route_copy[ib] = b, a      # a、b互换
@@ -140,6 +153,72 @@ class TabuSearch():
         if len(self.tabu_list) > self.tabu_length:
                 self.tabu_list.pop(0)
 
+    def costroad2(self,allocation):
+
+        locations = self.city_ids + [30]  # 1~30，加返回点一共有30个位置
+        points = self.city_ids  # 1~29，29个点
+
+        cost = sum([sum(allocation[location, point] * point for point in points) for location in locations])
+        # print(solution)
+        #
+        # pairs = list()
+        # for i in range(len(solution)-1):
+        #     pairs.append((int(solution[i]), int(solution[i+1])))
+        #
+        # cost = 0
+        # for pair in pairs:
+        #     cost += self.distance_matrix[pair]
+
+        return cost
+
+    def exact_solution(self):
+        """
+        用gurobi求精确解
+        :return:
+        """
+        locations = self.city_ids + [30]     # 1~30，加返回点一共有30个位置
+        points = self.city_ids               # 1~29，29个点
+
+        model = Model('tsp')
+
+        allocation = model.addVars(locations, points, vtype=GRB.BINARY, name='allocation')  # 30 * 29，每个location的point
+
+        model.addConstr(allocation[1,1] == 1, name = 'start_id')         # 规定起始点：第一个location用1号点
+        model.addConstr(allocation[30,1] == 1, name = 'end_id')          # 规定终止点：最后一个location用1号点
+
+        model.addConstrs((allocation.sum('*', point) == 1 for point in points[1:]), name='point')
+                                                        # 除1号点之外，每个点一个location
+        model.addConstrs((allocation.sum(location, '*') == 1 for location in locations), name='location')
+                                                        # 每个location，被一个点占据
+        route = [sum(allocation[location, point] * point for point in points) for location in locations]
+
+        cost = LinExpr(0)
+        for i in range(len(route) - 1):
+            location = i + 1
+            point_left = route[i]
+            point_right = route[i+1]
+            cost.addTerms(self.distance_matrix[point_left, point_right], allocation[location, point_left])
+
+        model.setObjective(cost, sense=GRB.MINIMIZE)
+
+        model.optimize()
+
+        if model.Status == GRB.INFEASIBLE:
+
+            try:
+                model.computeIIS()
+                model.write("model1.ilp")
+            except GurobiError:
+                print('infeasible model')
+
+        else:
+            print('the facility location optimized sucessfully !')
+            print('the objective of the model is {}'.format(model.objVal))
+
+        s = model.getAttr('x', allocation)
+        print(s)
+        print([sum(s[location, point] * point for point in points) for location in locations])
+
     def plot_route(self):
         """
         画出路径图
@@ -154,18 +233,18 @@ class TabuSearch():
             y.append(y0)
         pyplot.plot(x, y)
         pyplot.scatter(x, y)
-        pyplot.savefig('iterations_image')
+        pyplot.savefig('tbsearch_image')
 
 if __name__ == '__main__':
     import timeit
 
-    t = TabuSearch(sample_length = 200, tabu_length = 7)
+    t = TabuSearch(file_path = 'data.txt', sample_length = 200, tabu_length = 19)
     print('ok')
     print(t.citys)
     print(t.curroute)
     print(t.bestcost)
     print(t.curroute)
-    for i in range(10000):
+    for i in range(10001):
         t.step()
         if i % 500 == 0:
             print(t.bestcost)

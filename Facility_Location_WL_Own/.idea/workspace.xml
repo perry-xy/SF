@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb71138d-c6f2-433c-acd1-892971703175" name="Default Changelist" comment="">
+    <list default="true" id="df0a677e-225f-4ef5-912e-18a9120b4b92" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/input3.0.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/input3.0.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/沈阳16块/RDC_6_沈阳16块.csv" beforeDir="false" afterPath="$PROJECT_DIR$/沈阳16块/RDC_6_沈阳16块.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/沈阳16块/performance_沈阳16块.csv" beforeDir="false" afterPath="$PROJECT_DIR$/沈阳16块/performance_沈阳16块.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/optimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/optimization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/sensitivity_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/sensitivity_analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/utils/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/jupyter/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/jupyter/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/jupyter/雅诗兰黛耗材.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Sf_Non_Project/python/jupyter/雅诗兰黛耗材.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/iterations_image.png" beforeDir="false" afterPath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/iterations_image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/tabusearch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sf_Non_Project/python/Tabu_Search/tabusearch2.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1jdGBZusknu9qCncVwi2kmCtusD" />
+  <component name="ProjectId" id="1mB5YQCZAfBoirEgTq5OJGPE76S" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,173 +48,27 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="datahandle" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facility_Location_WL_Own" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/datahandle.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facility_Location_WL_Own" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main_py" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facility_Location_WL_Own" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_py.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="result_format_toB" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Facility_Location_WL_Own" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\Code\SF\Facility_Location_WL_Own\core\result_format_toB.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.main_py" />
-        <item itemvalue="Python.datahandle" />
-        <item itemvalue="Python.result_format_toB" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="eb71138d-c6f2-433c-acd1-892971703175" name="Default Changelist" comment="" />
-      <created>1604126420677</created>
+      <changelist id="df0a677e-225f-4ef5-912e-18a9120b4b92" name="Default Changelist" comment="" />
+      <created>1608954190618</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1604126420677</updated>
+      <updated>1608954190618</updated>
     </task>
     <servers />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="548" y="153" key="FileChooserDialogImpl" timestamp="1608784601407">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1608784601407" />
-    <state width="1515" height="288" key="GridCell.Tab.0.bottom" timestamp="1608877542439">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1419" height="161" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1604131704916" />
-    <state width="1515" height="288" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608877542439" />
-    <state width="1579" height="137" key="GridCell.Tab.0.bottom/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1604632148889" />
-    <state width="1899" height="334" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607999284537" />
-    <state width="1515" height="288" key="GridCell.Tab.0.center" timestamp="1608877542439">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1419" height="161" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1604131704915" />
-    <state width="1515" height="288" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1608877542439" />
-    <state width="1579" height="137" key="GridCell.Tab.0.center/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1604632148889" />
-    <state width="1899" height="334" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607999284537" />
-    <state width="1515" height="288" key="GridCell.Tab.0.left" timestamp="1608877542439">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1419" height="161" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1604131704914" />
-    <state width="1515" height="288" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1608877542439" />
-    <state width="1579" height="137" key="GridCell.Tab.0.left/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1604632148888" />
-    <state width="1899" height="334" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607999284537" />
-    <state width="1515" height="288" key="GridCell.Tab.0.right" timestamp="1608877542439">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1419" height="161" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1604131704915" />
-    <state width="1515" height="288" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1608877542439" />
-    <state width="1579" height="137" key="GridCell.Tab.0.right/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1604632148889" />
-    <state width="1899" height="334" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607999284537" />
-    <state width="1028" height="258" key="GridCell.Tab.1.bottom" timestamp="1608025961395">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1028" height="258" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608025961395" />
-    <state width="1028" height="258" key="GridCell.Tab.1.center" timestamp="1608025961395">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1028" height="258" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1608025961395" />
-    <state width="1028" height="258" key="GridCell.Tab.1.left" timestamp="1608025961395">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1028" height="258" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1608025961395" />
-    <state width="1028" height="258" key="GridCell.Tab.1.right" timestamp="1608025961395">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1028" height="258" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1608025961395" />
-    <state x="660" y="74" width="599" height="891" key="find.popup" timestamp="1604459582692">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="660" y="74" width="599" height="891" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604459582692" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1608103123737">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1608103123737" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
