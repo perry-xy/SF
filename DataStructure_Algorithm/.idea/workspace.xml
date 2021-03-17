@@ -19,14 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70ff3f29-915c-4507-aa28-c35003dabec4" name="Default Changelist" comment="">
+    <list default="true" id="7d874d67-4ad3-434f-8851-c3b241202429" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/../.idea/SF.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Facility_Location_WL/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR_Own/.idea/OR_Own.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pythonProject/.idea/pythonProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Facility_Location_WL/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Facility_Location_WL/.idea/dbnavigator.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Facility_Location_WL/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Facility_Location_WL/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Facility_Location_WL_Own/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Facility_Location_WL_Own/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/data/1130_data_input_level.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../SF_Technology_Algorithm/OR/data/1130_data_input_level.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/chenxingyou/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../SF_Technology_Algorithm/chenxingyou/.idea/dbnavigator.xml" beforeDir="false" />
@@ -38,10 +39,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1nigRd1bh7DYhkIm9GJR0fRTzy1" />
+  <component name="ProjectId" id="1nstkVdgiC8JKdCJcAfBDkGvGBz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,14 +58,42 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
   </component>
+  <component name="RunManager">
+    <configuration name="max_add_son_list" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataStructure_Algorithm" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/max_add_son_list.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.max_add_son_list" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="70ff3f29-915c-4507-aa28-c35003dabec4" name="Default Changelist" comment="" />
-      <created>1611878317885</created>
+      <changelist id="7d874d67-4ad3-434f-8851-c3b241202429" name="Default Changelist" comment="" />
+      <created>1612190768403</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1611878317885</updated>
+      <updated>1612190768403</updated>
     </task>
     <servers />
   </component>
@@ -71,6 +107,27 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1419" height="213" key="GridCell.Tab.0.bottom" timestamp="1612193517568">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="1419" height="213" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1612193517568" />
+    <state width="1419" height="213" key="GridCell.Tab.0.center" timestamp="1612193517568">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="1419" height="213" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1612193517568" />
+    <state width="1419" height="213" key="GridCell.Tab.0.left" timestamp="1612193517568">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="1419" height="213" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1612193517568" />
+    <state width="1419" height="213" key="GridCell.Tab.0.right" timestamp="1612193517568">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state width="1419" height="213" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1612193517568" />
+    <state x="385" y="173" key="search.everywhere.popup" timestamp="1612192845067">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="385" y="173" key="search.everywhere.popup/0.23.1440.826@0.23.1440.826" timestamp="1612192845067" />
   </component>
 </project>

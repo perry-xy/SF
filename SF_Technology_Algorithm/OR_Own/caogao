@@ -1,0 +1,12 @@
+basic_cost[name_id]:保底收入
+capacity[name_id]:'receive','send'
+capacity_cost[name_id]:'reveive','send'
+employees:员工列表
+
+zones:zone空间编号列表
+demands[time] = {'zone0':{'receive':,'send':,'receive_predict':,'send_predict':}
+
+reveive_samples[time] = df
+send_samples[time] = df
+
+

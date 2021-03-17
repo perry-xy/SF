@@ -1,0 +1,33 @@
+2021-01-24 15:55:18,723 - main - INFO - loading the excel file ......
+2021-01-24 15:56:53,434 - main - INFO - loading the excel file ......
+2021-01-24 15:58:17,383 - main - INFO - loading the excel file ......
+2021-01-24 16:02:07,158 - main - INFO - loading the excel file ......
+2021-01-24 16:05:32,742 - main - INFO - loading the excel file ......
+2021-01-24 16:15:01,504 - main - INFO - loading the excel file ......
+2021-01-24 16:15:01,665 - main - INFO - loading the excel file over
+2021-01-24 16:15:01,703 - main - INFO - 2020-08-11 00:00:00
+2021-01-24 16:15:01,754 - main - INFO - using the predict value as optimized target
+2021-01-24 16:16:09,697 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:16:09,698 - main - INFO - the objective of the model is 42484.0
+2021-01-24 16:16:10,225 - main - INFO - 2020-08-12 00:00:00
+2021-01-24 16:16:10,261 - main - INFO - using the predict value as optimized target
+2021-01-24 16:19:30,301 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:19:30,301 - main - INFO - the objective of the model is 41224.0
+2021-01-24 16:19:30,745 - main - INFO - 2020-08-13 00:00:00
+2021-01-24 16:19:30,776 - main - INFO - using the predict value as optimized target
+2021-01-24 16:22:50,828 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:22:50,829 - main - INFO - the objective of the model is 40630.0
+2021-01-24 16:31:22,629 - main - INFO - loading the excel file ......
+2021-01-24 16:31:22,819 - main - INFO - loading the excel file over
+2021-01-24 16:31:22,862 - main - INFO - 2020-08-11 00:00:00
+2021-01-24 16:31:22,905 - main - INFO - using the predict value as optimized target
+2021-01-24 16:32:28,673 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:32:28,674 - main - INFO - the objective of the model is 42484.0
+2021-01-24 16:32:29,120 - main - INFO - 2020-08-12 00:00:00
+2021-01-24 16:32:29,151 - main - INFO - using the predict value as optimized target
+2021-01-24 16:35:49,188 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:35:49,188 - main - INFO - the objective of the model is 41239.0
+2021-01-24 16:35:49,628 - main - INFO - 2020-08-13 00:00:00
+2021-01-24 16:35:49,660 - main - INFO - using the predict value as optimized target
+2021-01-24 16:39:09,729 - main - INFO - the facility location optimized sucessfully !
+2021-01-24 16:39:09,729 - main - INFO - the objective of the model is 40630.0
